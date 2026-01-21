@@ -1,0 +1,77 @@
+[eval] Loading AnnData input...
+[eval] Loaded 33454 cells, 5000 genes. Rare cell types: ['Cluster_19', 'Cluster_15', 'Cluster_7', 'Cluster_3', 'Cluster_14', 'Cluster_12', 'Cluster_8', 'Cluster_13', 'Cluster_17', 'Cluster_2', 'Cluster_16', 'Cluster_18', 'Cluster_1', 'Cluster_6', 'Cluster_10', 'Cluster_5', 'Cluster_9']
+[eval] Sampling zero coordinates for evaluation...
+[eval] Collected 200000 zero entries for downstream evaluation.
+[eval] Labeled 232 sampled zeros with orthogonal evidence.
+[eval] Loading imputed matrix for raw from output/raw/GSE128639_MNC_RNA_umi/MNC/MNC.npy
+[eval] Variance scoring requested but var file missing at output/raw/GSE128639_MNC_RNA_umi/MNC/MNC_var.npy
+[eval] Loading imputed matrix for gene_median from output/gene_median/GSE128639_MNC_RNA_umi/MNC/MNC.npy
+[eval] Variance scoring requested but var file missing at output/gene_median/GSE128639_MNC_RNA_umi/MNC/MNC_var.npy
+[eval] Loading imputed matrix for svd_impute from output/svd_impute/GSE128639_MNC_RNA_umi/MNC/MNC.npy
+[eval] Variance scoring requested but var file missing at output/svd_impute/GSE128639_MNC_RNA_umi/MNC/MNC_var.npy
+[eval] Loading imputed matrix for graph_smooth from output/graph_smooth/GSE128639_MNC_RNA_umi/MNC/MNC.npy
+[eval] Variance scoring requested but var file missing at output/graph_smooth/GSE128639_MNC_RNA_umi/MNC/MNC_var.npy
+[eval] Loading imputed matrix for MAGIC from output/MAGIC/GSE128639_MNC_RNA_umi/MNC/MNC.npy
+[eval] Variance scoring requested but var file missing at output/MAGIC/GSE128639_MNC_RNA_umi/MNC/MNC_var.npy
+[eval] Loading imputed matrix for scVI from output/scVI/GSE128639_MNC_RNA_umi/MNC/MNC.npy
+[eval] Variance scoring requested but var file missing at output/scVI/GSE128639_MNC_RNA_umi/MNC/MNC_var.npy
+[eval] Loading imputed matrix for latent_truth_scvi_select from output/latent_truth_scvi_select/GSE128639_MNC_RNA_umi/MNC/MNC.npy
+[eval] Using latent z-scores for latent_truth_scvi_select with eps=1.0
+[eval] Collected values for methods: ['raw', 'gene_median', 'svd_impute', 'graph_smooth', 'MAGIC', 'scVI', 'latent_truth_scvi_select']
+[eval] Saved method reliability features to signal_to_noise/results/orthogonal_safe/mnc/method_reliability.csv
+[eval] Added safe-fusion method safe_latent_truth_scvi_select using latent_truth_scvi_select (conf >= 1.8708, teachers=['scVI', 'MAGIC', 'graph_smooth', 'svd_impute']).
+[eval] Saved operating point sweep to signal_to_noise/results/orthogonal_safe/mnc/method_operating_points.csv
+[eval] Saved per-method bootstrap metrics to signal_to_noise/results/orthogonal_safe/mnc/method_bootstrap_metrics.csv
+[eval] Saved method weight summary to signal_to_noise/results/orthogonal_safe/mnc/method_weight_summary.csv
+[eval] Saved label-shuffle placebo metrics to signal_to_noise/results/orthogonal_safe/mnc/label_shuffle_metrics.json
+[eval] Saved per-cell-type metrics to signal_to_noise/results/orthogonal_safe/mnc/per_celltype_metrics.csv
+[eval] Saved bootstrap confidence intervals to signal_to_noise/results/orthogonal_safe/mnc/bootstrap_metrics.json
+[eval] Sensitivity combo 1/9 evaluated.
+[eval] Sensitivity combo 2/9 evaluated.
+[eval] Sensitivity combo 3/9 evaluated.
+[eval] Sensitivity combo 4/9 evaluated.
+[eval] Sensitivity combo 5/9 evaluated.
+[eval] Sensitivity combo 6/9 evaluated.
+[eval] Sensitivity combo 7/9 evaluated.
+[eval] Sensitivity combo 8/9 evaluated.
+[eval] Sensitivity combo 9/9 evaluated.
+[eval] Saved sensitivity sweep to signal_to_noise/results/orthogonal_safe/mnc/sensitivity_results.csv
+[eval] Saved method divergence report to signal_to_noise/results/orthogonal_safe/mnc/method_divergence.csv
+[eval] Precision-first experiment complete.
+[eval] Loading AnnData input...
+[eval] Loaded 33454 cells, 5000 genes. Rare cell types: ['Cluster_19', 'Cluster_15', 'Cluster_7', 'Cluster_3', 'Cluster_14', 'Cluster_12', 'Cluster_8', 'Cluster_13', 'Cluster_17', 'Cluster_2', 'Cluster_16', 'Cluster_18', 'Cluster_1', 'Cluster_6', 'Cluster_10', 'Cluster_5', 'Cluster_9']
+[eval] Sampling zero coordinates for evaluation...
+[eval] Collected 200000 zero entries for downstream evaluation.
+[eval] Labeled 232 sampled zeros with orthogonal evidence.
+[eval] Loading imputed matrix for raw from output/raw/GSE128639_MNC_RNA_umi/MNC/MNC.npy
+[eval] Variance scoring requested but var file missing at output/raw/GSE128639_MNC_RNA_umi/MNC/MNC_var.npy
+[eval] Loading imputed matrix for gene_median from output/gene_median/GSE128639_MNC_RNA_umi/MNC/MNC.npy
+[eval] Variance scoring requested but var file missing at output/gene_median/GSE128639_MNC_RNA_umi/MNC/MNC_var.npy
+[eval] Loading imputed matrix for svd_impute from output/svd_impute/GSE128639_MNC_RNA_umi/MNC/MNC.npy
+[eval] Variance scoring requested but var file missing at output/svd_impute/GSE128639_MNC_RNA_umi/MNC/MNC_var.npy
+[eval] Loading imputed matrix for graph_smooth from output/graph_smooth/GSE128639_MNC_RNA_umi/MNC/MNC.npy
+[eval] Variance scoring requested but var file missing at output/graph_smooth/GSE128639_MNC_RNA_umi/MNC/MNC_var.npy
+[eval] Loading imputed matrix for MAGIC from output/MAGIC/GSE128639_MNC_RNA_umi/MNC/MNC.npy
+[eval] Variance scoring requested but var file missing at output/MAGIC/GSE128639_MNC_RNA_umi/MNC/MNC_var.npy
+[eval] Loading imputed matrix for scVI from output/scVI/GSE128639_MNC_RNA_umi/MNC/MNC.npy
+[eval] Loading AnnData input...
+[eval] Loaded 33454 cells, 5000 genes. Rare cell types: ['Cluster_19', 'Cluster_15', 'Cluster_7', 'Cluster_3', 'Cluster_14', 'Cluster_12', 'Cluster_8', 'Cluster_13', 'Cluster_17', 'Cluster_2', 'Cluster_16', 'Cluster_18', 'Cluster_1', 'Cluster_6', 'Cluster_10', 'Cluster_5', 'Cluster_9']
+[eval] Sampling zero coordinates for evaluation...
+[eval] Collected 200000 zero entries for downstream evaluation.
+[eval] Labeled 232 sampled zeros with orthogonal evidence.
+[eval] Loading imputed matrix for raw from output/raw/GSE128639_MNC_RNA_umi/MNC/MNC.npy
+[eval] Variance scoring requested but var file missing at output/raw/GSE128639_MNC_RNA_umi/MNC/MNC_var.npy
+[eval] Loading imputed matrix for gene_median from output/gene_median/GSE128639_MNC_RNA_umi/MNC/MNC.npy
+[eval] Variance scoring requested but var file missing at output/gene_median/GSE128639_MNC_RNA_umi/MNC/MNC_var.npy
+[eval] Loading imputed matrix for svd_impute from output/svd_impute/GSE128639_MNC_RNA_umi/MNC/MNC.npy
+[eval] Variance scoring requested but var file missing at output/svd_impute/GSE128639_MNC_RNA_umi/MNC/MNC_var.npy
+[eval] Loading imputed matrix for graph_smooth from output/graph_smooth/GSE128639_MNC_RNA_umi/MNC/MNC.npy
+[eval] Variance scoring requested but var file missing at output/graph_smooth/GSE128639_MNC_RNA_umi/MNC/MNC_var.npy
+[eval] Loading imputed matrix for MAGIC from output/MAGIC/GSE128639_MNC_RNA_umi/MNC/MNC.npy
+[eval] Variance scoring requested but var file missing at output/MAGIC/GSE128639_MNC_RNA_umi/MNC/MNC_var.npy
+[eval] Loading imputed matrix for scVI from output/scVI/GSE128639_MNC_RNA_umi/MNC/MNC.npy
+[eval] Variance scoring requested but var file missing at output/scVI/GSE128639_MNC_RNA_umi/MNC/MNC_var.npy
+[eval] Loading imputed matrix for latent_truth_scvi_select from output/latent_truth_scvi_select/GSE128639_MNC_RNA_umi/MNC/MNC.npy
+[eval] Using latent z-scores for latent_truth_scvi_select with eps=1.0
+[eval] Collected values for methods: ['raw', 'gene_median', 'svd_impute', 'graph_smooth', 'MAGIC', 'scVI', 'latent_truth_scvi_select']
+[eval] Added safe-fusion method safe_latent_truth_scvi_select using latent_truth_scvi_select (conf >= 1.8708, teachers=['scVI', 'MAGIC', 'graph_smooth', 'svd_impute']).

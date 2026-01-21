@@ -1,0 +1,8 @@
+ep_dataset/
+output/
+results/check_*/
+*.npy
+*.h5ad
+__pycache__/
+.DS_Store
+._*
