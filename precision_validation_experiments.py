@@ -127,6 +127,21 @@ def get_imputation_file(
     return None
 
 
+def get_imputation_file_from_roots(
+    roots: List[str],
+    dataset_id: str,
+    method: str,
+    disease: str,
+    tissue: str,
+) -> Optional[Path]:
+    """Search one or more cached-output roots for an imputed matrix."""
+    for root in roots:
+        path = get_imputation_file(root, dataset_id, method, disease, tissue)
+        if path is not None:
+            return path
+    return None
+
+
 def extract_value(matrix, row: int, col: int) -> float:
     """Fetch a single value from dense or sparse matrices."""
     value = matrix[row, col]
@@ -461,9 +476,11 @@ class PrecisionExperiment:
 
     def load_method_values(self) -> None:
         rows, cols = self.zero_rows, self.zero_cols
+        roots = [self.args.imputation_root]
+        roots.extend([r.strip() for r in self.args.extra_imputation_roots.split(",") if r.strip()])
         for method in self.methods:
-            path = get_imputation_file(
-                root=self.args.imputation_root,
+            path = get_imputation_file_from_roots(
+                roots=roots,
                 dataset_id=self.dataset_id,
                 method=method,
                 disease=self.args.disease,
@@ -1163,6 +1180,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--rare_cell_floor", type=float, default=0.2, help="Minimum value to consider a rare-cell recovery.")
     parser.add_argument("--rare_cell_fraction", type=float, default=0.05, help="Fractional cutoff to treat clusters as rare.")
     parser.add_argument("--imputation_root", type=str, default="output", help="Root directory that stores per-method imputed arrays.")
+    parser.add_argument("--extra_imputation_roots", type=str, default="", help="Additional comma-separated roots searched for cached imputed arrays.")
     parser.add_argument("--output_dir", type=str, default="./precision_suite", help="Where to store consolidated artefacts.")
     parser.add_argument("--cluster_key", type=str, default=None, help="Optional adata.obs column with cell-type annotations.")
     parser.add_argument("--max_cells", type=int, default=15000, help="Optional max number of cells to keep for analysis.")

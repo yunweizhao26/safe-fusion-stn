@@ -1,10 +1,13 @@
-# Signal-to-Noise
+# Safe Fusion / Signal-to-Noise
+
 Key functions:
 - Reproduce the **main table** at fill rate `0.081`.
 - Reproduce **F1 vs fill-rate curves** for CBMC/PBMC/MNC.
 - Reproduce the **MNC q-sweep** summary.
 
-Large datasets and full imputed matrices are **not** included; see Data Setup.
+Large datasets, full imputed matrices, local job logs, and paper drafts are
+**not** included. See [docs/data_manifest.md](docs/data_manifest.md) for data
+source links and expected local paths.
 
 ## Environment
 
@@ -27,10 +30,14 @@ Download and place these h5ad files under `ep_dataset/`:
 - MNC: `ep_dataset/GSE128639/GSE128639_MNC_RNA_umi.h5ad`
   - GEO: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE128639
 
-Marker files (already included in repo root):
+Marker files expected by the commands:
 - `output/cbmc_cluster_markers.json`
 - `output/markers/pbmc_curated_markers.json`
 - `output/markers/mnc_curated_markers.json`
+
+These marker files are small derived inputs. If they are not present after
+cloning, copy them from the released artifact bundle or regenerate them from the
+curated marker lists used in the paper.
 
 ## Methods
 
