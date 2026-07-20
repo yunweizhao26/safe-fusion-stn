@@ -372,6 +372,8 @@ class PrecisionExperiment:
         log_message("Loading AnnData input...", self.log_file)
         backed = "r" if self.args.low_memory else None
         adata = read_h5ad(self.args.input_file, backed=backed)
+        if backed is not None:
+            adata = adata.to_memory()
         if self.args.max_cells and adata.n_obs > self.args.max_cells:
             idx = np.random.choice(adata.n_obs, self.args.max_cells, replace=False)
             adata = adata[idx].copy()
@@ -950,7 +952,12 @@ class PrecisionExperiment:
             "original_weights": weights,
         }
 
-    def run_label_shuffle(self, probabilities: np.ndarray) -> Optional[Dict[str, float]]:
+    def run_label_shuffle(
+        self,
+        probabilities: np.ndarray,
+        decision: Optional[float] = None,
+        output_name: str = "label_shuffle_consensus.json",
+    ) -> Optional[Dict[str, float]]:
         """Shuffle orthogonal labels to estimate false-positive performance under adversarial priors."""
         label_mask = ~np.isnan(self.sample_labels)
         if not np.any(label_mask):
@@ -959,16 +966,18 @@ class PrecisionExperiment:
         rng = np.random.default_rng(self.args.seed + 17)
         y_true = self.sample_labels[label_mask]
         y_scores = probabilities[label_mask]
-        baseline_metrics = self._compute_label_metrics(y_true, y_scores, self.args.fill_cutoff, include_curves=False)
+        decision = self.args.fill_cutoff if decision is None else float(decision)
+        baseline_metrics = self._compute_label_metrics(y_true, y_scores, decision, include_curves=False)
         keys = ["pr_auc", "precision_at_threshold", "recall_at_threshold", "f1_at_threshold", "roc_auc"]
         distributions = {key: [] for key in keys}
         for _ in range(self.args.shuffle_rounds):
             shuffled = rng.permutation(y_true)
-            shuffled_metrics = self._compute_label_metrics(shuffled, y_scores, self.args.fill_cutoff, include_curves=False)
+            shuffled_metrics = self._compute_label_metrics(shuffled, y_scores, decision, include_curves=False)
             for key in keys:
                 distributions[key].append(shuffled_metrics[key])
         summary = {
             "rounds": self.args.shuffle_rounds,
+            "threshold": decision,
             "observed": baseline_metrics,
             "shuffle_baseline": {
                 key: {
@@ -979,7 +988,7 @@ class PrecisionExperiment:
                 for key in keys
             },
         }
-        path = self.output_dir / "label_shuffle_metrics.json"
+        path = self.output_dir / output_name
         with open(path, "w", encoding="utf-8") as handle:
             json.dump({**summary, "distributions": distributions}, handle, indent=2)
         log_message(f"Saved label-shuffle placebo metrics to {path}", self.log_file)
@@ -1115,6 +1124,18 @@ class PrecisionExperiment:
         probabilities = self.aggregate_probabilities(default_weights, {})
         summary_metrics = self.evaluate_predictions(probabilities, {})
         label_shuffle = self.run_label_shuffle(probabilities)
+        safe_label_shuffle = None
+        safe_name = self.args.safe_fusion_name.strip()
+        if not safe_name and self.args.safe_fusion_method.strip():
+            safe_name = f"safe_{self.args.safe_fusion_method.strip()}"
+        if safe_name in self.method_values:
+            safe_scores = self.method_values[safe_name]
+            threshold = float(np.quantile(safe_scores, 1.0 - self.args.fill_rate_bootstrap_target))
+            safe_label_shuffle = self.run_label_shuffle(
+                safe_scores,
+                decision=threshold,
+                output_name="label_shuffle_safe_fusion.json",
+            )
         per_cell = self.compute_per_celltype_metrics(probabilities)
         bootstrap = self.bootstrap_metrics(probabilities)
         placebo = self.run_placebo_analysis(default_weights)
@@ -1141,6 +1162,8 @@ class PrecisionExperiment:
             summary_bundle["placebo"] = placebo
         if label_shuffle:
             summary_bundle["label_shuffle"] = label_shuffle
+        if safe_label_shuffle:
+            summary_bundle["safe_fusion_label_shuffle"] = safe_label_shuffle
         if bootstrap:
             summary_bundle["bootstrap"] = bootstrap
         summary_bundle["sensitivity_rows"] = len(sensitivity)
